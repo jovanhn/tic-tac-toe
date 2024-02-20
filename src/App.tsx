@@ -1,16 +1,15 @@
 import { useState } from 'react'
-import viteLogo from '/vite.svg'
 import './App.css'
 import './styles.css'
 
-function Square({value, onSquareClick}) {
+function Square({value, onSquareClick}: {value: any, onSquareClick: any}) {
   return (
     <button className="square" onClick={onSquareClick}>
       {value}
     </button>);
 }
 
-function Board({squares, xIsNext, onPlay}) {
+function Board({squares, xIsNext,onPlay}: {squares: any, xIsNext:any, onPlay:any}){
 
   
   const winner = calculateWinner(squares);
@@ -23,7 +22,7 @@ function Board({squares, xIsNext, onPlay}) {
     status = 'Next turn, player: ' + (xIsNext ? "X" : "O");
   }
 
-  function handleClick(i) {
+  function handleClick(i: any) {
     if (squares[i] || calculateWinner(squares)) {
       console.log('invalid move!');
       console.log('There is a winner already or move played.')
@@ -61,7 +60,7 @@ function Board({squares, xIsNext, onPlay}) {
   );
 }
 
-function calculateWinner(squares) {
+function calculateWinner(squares:any) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -88,18 +87,19 @@ export default function Game() {
   const xIsNext = currentMove % 2 == 0;
   const currentSquares = history[currentMove];
 
-  function handlePlay(nextSquares) {
+  function handlePlay(nextSquares: any) {
     const nextHistory = [...history.slice(0, currentMove + 1),nextSquares]
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length-1);
   }
 
-  function jumpTo(nextMove) {
+  function jumpTo(nextMove: any) {
     setCurrentMove(nextMove);
   }
 
   const moves = history.map((squares, move) => {
     let description;
+    console.log(squares[0])
     if (move > 0) {
       description = 'Go to move #' + move;
     } else {
@@ -115,7 +115,7 @@ export default function Game() {
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
+        <Board squares={currentSquares} xIsNext={xIsNext} onPlay={handlePlay}/>
       </div>
       <div className="game-info">
         <ol>{moves}</ol>
